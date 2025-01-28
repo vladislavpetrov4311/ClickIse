@@ -1,7 +1,6 @@
 <?php
+use App\Http\Controllers\SelectOptionController;
+use App\Http\Controllers\SetOptionController;
 
-use Illuminate\Support\Facades\Route;
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/main', SelectOptionController::class);
+Route::post('SetOption', SetOptionController::class);
