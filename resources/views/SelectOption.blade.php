@@ -10,6 +10,15 @@
         </label>
     </div>
     <button type="button" onclick="sendMethod()">Получить код</button>
+    
+    <div class = "Code"></div>
+
+    <div class = "CheckCode" style="display:none">
+    <input type="text" id="TextCheckCode">
+    <br>
+    <button type="button" onclick="CheckCode()">Подтвердить код</button>
+    </div>
+
 <script>
     function sendMethod() {
             const sms = document.getElementById('sms');
@@ -30,6 +39,7 @@
                 let formdada = new FormData();
                 formdada.append('Option' , selectedMethod);
 
+                document.querySelector('.Code').innerHTML = '';
                 let res = fetch('http://localhost:8000/SetOption' , {
                 method: 'POST',
                 body: formdada
@@ -42,7 +52,8 @@
                 return response.json(); // Преобразуем ответ в JSON
             })
             .then(data => {
-                console.log(data['Code']); // Работаем с полученным кодом
+                document.querySelector('.Code').innerHTML += `<p>Ваш код: ${data['Code']}</p>`; // Работаем с полученным кодом
+                document.querySelector('.CheckCode').style.display = "block";
             })
             .catch(error => {
                 console.error('Не удалось получить ответ от Route:', error);
@@ -51,4 +62,15 @@
                 alert('Пожалуйста, выберите метод подтверждения.');
             }
         }
+    
+    function CheckCode() {
+
+        let formdada = new FormData();
+        formdada.append('CheckCode' , document.getElementById('TextCheckCode').value);
+        
+        let res = fetch('http://localhost:8000/CheckCode' , {
+                method: 'POST',
+                body: formdada
+            });
+    }
 </script>
