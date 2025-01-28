@@ -16,6 +16,11 @@
 
     ![Alt text](images/3_1.png)
 
+## Как запустить ?
+
+1. `git clone https://github.com/vladislavpetrov4311/ClickIse.git`
+2. `cd ClickIse; php artisan serve`
+
 ## Ответы на вопросы
 
 Какие вы выделили бы слои, абстракции, таблицы? Как связали бы модели?
