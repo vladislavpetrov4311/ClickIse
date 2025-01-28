@@ -8,7 +8,11 @@ class ServiceTelegram implements GenerateCode{
 
     public function getCode(): string {
 
-        return 'generated code for Telegram';
+        $code = 'generated code for Telegram';
+        session_start();
+        $_SESSION['code'] = $code;
+
+        return $code;
 
     }
 }

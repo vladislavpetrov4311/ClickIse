@@ -8,7 +8,11 @@ class ServiceSms implements GenerateCode{
 
     public function getCode(): string {
 
-        return 'generated code for Sms';
+        $code = 'generated code for Sms';
+        session_start();
+        $_SESSION['code'] = $code;
+
+        return $code;
 
     }
 }
