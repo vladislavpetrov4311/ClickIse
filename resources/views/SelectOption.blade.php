@@ -19,6 +19,8 @@
     <button type="button" onclick="CheckCode()">Подтвердить код</button>
     </div>
 
+    <div class = "CheckedCode"></div>
+
 <script>
     function sendMethod() {
             const sms = document.getElementById('sms');
@@ -68,9 +70,23 @@
         let formdada = new FormData();
         formdada.append('CheckCode' , document.getElementById('TextCheckCode').value);
         
+        document.querySelector('.CheckedCode').innerHTML = '';
         let res = fetch('http://localhost:8000/CheckCode' , {
                 method: 'POST',
                 body: formdada
+            }).then(response => {
+
+            // Проверяем, успешен ли ответ
+            if (!response.ok) {
+                throw new Error('Запрос не успешный !');
+            }
+                return response.json(); // Преобразуем ответ в JSON
+            })
+                .then(data => {
+                    document.querySelector('.CheckedCode').innerHTML += `${data['Response']}`; // Работаем с полученным кодом
+            })
+            .catch(error => {
+                    console.error('Не удалось получить ответ от Route:', error);
             });
     }
 </script>
